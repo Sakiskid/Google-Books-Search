@@ -1,12 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
+const apiRoutes = require('./routes/apiRoutes');
 
 // Define Middleware
 if(process.env.NODE_ENV === "production") {
     app.use(express.static('./google-books-search/build'));
 }
+
+// Connet to the Mongo DB
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/googlebooks",
+    { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
+);
 
 // Send every HTML route to React App
 app.get('*', (req, res) => {
