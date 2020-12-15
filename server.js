@@ -8,7 +8,7 @@ const apiRoutes = require('./routes/apiRoutes');
 
 // Define Middleware
 if(process.env.NODE_ENV === "production") {
-    app.use(express.static('./google-books-search/build'));
+    app.use(express.static('./client/build'));
 }
 
 // Connet to the Mongo DB
@@ -19,7 +19,7 @@ mongoose.connect(
 
 // Send every HTML route to React App
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './google-books-search/build/index.html'));
+    res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // Listen on env port
